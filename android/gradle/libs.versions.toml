@@ -1,0 +1,15 @@
+# Pleos 공식 샘플(pleos-sample-vehicle-app)과 같은 도구 버전을 쓴다.
+[versions]
+agp = "8.8.2"
+kotlin = "2.0.0"
+vehicleSdk = "2.3.2"
+ttsSdk = "3.3.1"
+
+[libraries]
+vehicle-sdk = { module = "ai.pleos.playground:Vehicle", version.ref = "vehicleSdk" }
+tts-sdk = { module = "ai.pleos.playground:TextToSpeech", version.ref = "ttsSdk" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

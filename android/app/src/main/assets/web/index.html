@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>15분만</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div class="stage">
+
+  <header class="stage-head">
+    <h1>15분만</h1>
+    <p>졸릴 때 15분. 차가 재우고, 지키고, 깨워요. 왼쪽은 차량 화면에서 그대로 돌아가는 앱이고, 오른쪽은 차를 대신하는 가상 차량이에요.</p>
+  </header>
+
+  <div class="bench">
+
+    <!-- 차량 화면 -->
+    <section class="display" id="display" aria-label="차량 화면">
+      <div class="app" id="app" data-phase="home">
+
+        <div class="bar">
+          <div class="brand-wrap">
+            <div class="brand"><span class="brand-num">15</span>분만</div>
+            <span class="demo-badge" id="demoBadge" hidden></span>
+          </div>
+          <ul class="chips" id="chips" aria-label="차량 상태"></ul>
+        </div>
+
+        <!-- 처음 화면 -->
+        <div class="view view-home" data-view="home">
+          <div class="col col-main">
+            <!-- 이 화면의 주인공: 한 번 누르면 시작한다 -->
+            <button class="start" id="start" type="button">
+              <span class="start-num" id="minutes">15</span>
+              <span class="start-text">
+                <span class="start-verb">분 자기</span>
+                <span class="start-sub" id="wakeAt">오후 12:47에 깨워요</span>
+              </span>
+            </button>
+            <div class="presets" id="presets" role="group" aria-label="자는 시간 바꾸기">
+              <button type="button" data-min="10">10분</button>
+              <button type="button" data-min="15">15분</button>
+              <button type="button" data-min="20">20분</button>
+              <button type="button" data-min="30">30분</button>
+            </div>
+            <p class="blocker" id="blocker" role="status"></p>
+          </div>
+          <div class="col col-side">
+            <div class="seatbox" data-seat></div>
+            <dl class="promise">
+              <div><dt>재우고</dt><dd>문 잠금 · 바깥 공기 · 등받이 눕힘</dd></div>
+              <div><dt>지키고</dt><dd>실내 온도 · 문 · 기어를 지켜봐요</dd></div>
+              <div><dt>깨워요</dt><dd>등받이를 세우고 음성으로 깨워요</dd></div>
+            </dl>
+            <p class="fineprint">지하·실내 주차장에서는 시동을 끄고 주무세요.</p>
+          </div>
+        </div>
+
+        <!-- 준비 -->
+        <div class="view view-settling" data-view="settling">
+          <div class="col col-main">
+            <h2 class="headline">잘 준비를 하고 있어요</h2>
+            <ol class="steps" id="steps"></ol>
+          </div>
+          <div class="col col-side">
+            <div class="seatbox" data-seat></div>
+            <p class="hint center">등받이가 움직일 때 화면을 누르면 바로 멈춰요.</p>
+            <button class="ghost wide" id="cancelSettle" type="button">그만두기</button>
+          </div>
+        </div>
+
+        <!-- 자는 중 -->
+        <div class="view view-sleeping" data-view="sleeping">
+          <div class="sleep-core">
+            <div class="sleep-clock" id="sleepClock">15:00</div>
+            <p class="sleep-until" id="sleepUntil">오후 12:47에 깨워요</p>
+            <p class="sleep-guard" id="sleepGuard"></p>
+          </div>
+          <p class="sleep-tap">화면을 누르면 일어날 수 있어요</p>
+          <div class="peek" id="peek" hidden>
+            <button class="primary big" id="wakeNow" type="button">지금 일어나기</button>
+            <button class="ghost big" id="keepSleeping" type="button">계속 자기</button>
+          </div>
+        </div>
+
+        <!-- 깨우는 중 -->
+        <div class="view view-waking" data-view="waking">
+          <div class="col col-main">
+            <h2 class="headline" id="wakeTitle">일어날 시간이에요</h2>
+            <p class="lead" id="wakeLead">등받이를 세우고 있어요.</p>
+            <button class="primary dark big" id="ack" type="button">일어났어요</button>
+            <button class="ghost dark" id="stopSeat" type="button" hidden>등받이 멈춤</button>
+          </div>
+          <div class="col col-side">
+            <div class="seatbox on-lane" data-seat></div>
+          </div>
+        </div>
+
+        <!-- 출발 준비 -->
+        <div class="view view-ready" data-view="ready">
+          <div class="col col-main">
+            <h2 class="headline">출발 전 2분</h2>
+            <div class="ready-clock" id="readyClock">2:00</div>
+            <button class="primary big" id="go" type="button">지금 출발</button>
+          </div>
+          <div class="col col-side">
+            <ul class="tips">
+              <li>기지개를 크게 켜요</li>
+              <li>물을 한 모금 마셔요</li>
+              <li>창밖 먼 곳을 10초 바라봐요</li>
+            </ul>
+            <p class="fineprint">막 깬 직후에는 반응이 느려요. 잠깐 몸을 깨우고 출발하세요.</p>
+          </div>
+        </div>
+
+        <!-- 요약 -->
+        <div class="view view-summary" data-view="summary">
+          <div class="col col-main">
+            <h2 class="headline" id="sumTitle">15분 잤어요</h2>
+            <p class="lead" id="sumLead">안전 운전하세요.</p>
+            <ul class="notes" id="sumNotes"></ul>
+            <div class="row">
+              <button class="primary" id="home" type="button">처음으로</button>
+              <button class="ghost" id="raise" type="button" hidden>등받이 세우기</button>
+            </div>
+          </div>
+          <div class="col col-side">
+            <div class="seatbox" data-seat></div>
+            <p class="tally" id="tally"></p>
+          </div>
+        </div>
+
+        <div class="caption" id="caption" aria-live="polite"></div>
+      </div>
+      <div class="dimmer" id="dimmer" aria-hidden="true"></div>
+    </section>
+
+    <!-- 가상 차량 -->
+    <aside class="console" id="console" aria-label="가상 차량">
+      <h2>가상 차량</h2>
+      <p class="console-note">실제 차에서는 이 값들이 Pleos Connect SDK로 들어와요. 값을 바꿔 앱이 어떻게 반응하는지 확인해 보세요.</p>
+
+      <div class="ctl">
+        <span class="ctl-label">기어</span>
+        <div class="seg" id="gearSeg" role="group" aria-label="기어">
+          <button type="button" data-gear="P">P</button>
+          <button type="button" data-gear="R">R</button>
+          <button type="button" data-gear="N">N</button>
+          <button type="button" data-gear="D">D</button>
+        </div>
+      </div>
+
+      <div class="ctl">
+        <label class="ctl-label" for="tempRange">실내 온도 <output id="tempOut" for="tempRange">23°C</output></label>
+        <input id="tempRange" type="range" min="0" max="40" step="1" value="23">
+      </div>
+
+      <div class="ctl toggles">
+        <button type="button" class="tog" id="tBrake" aria-pressed="false">브레이크 밟기</button>
+        <button type="button" class="tog" id="tDoor" aria-pressed="false">문 열기</button>
+        <button type="button" class="tog" id="tRear" aria-pressed="false">뒷좌석에 사람</button>
+        <button type="button" class="tog" id="tWindow" aria-pressed="false">창문 열어 두기</button>
+        <button type="button" class="tog" id="tManual" aria-pressed="false">수동 시트 차량</button>
+      </div>
+
+      <div class="ctl">
+        <span class="ctl-label">시연 속도</span>
+        <div class="seg" id="speedSeg" role="group" aria-label="시연 속도">
+          <button type="button" data-speed="1">실제</button>
+          <button type="button" data-speed="10">10배</button>
+          <button type="button" data-speed="60">60배</button>
+        </div>
+      </div>
+
+      <h3>차에 보낸 요청</h3>
+      <ol class="log" id="log" aria-live="off"></ol>
+    </aside>
+
+  </div>
+</div>
+
+<script src="js/core.js"></script>
+<script src="js/vehicle.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

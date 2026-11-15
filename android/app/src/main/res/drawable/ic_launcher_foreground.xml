@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 눕힌 등받이 한 줄과 중앙선 한 칸 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:pathData="M34,66 L60,66"
+        android:strokeColor="#EEF2F8"
+        android:strokeWidth="8"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M60,66 L78,44"
+        android:strokeColor="#F6C343"
+        android:strokeWidth="8"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M40,80 L68,80"
+        android:strokeColor="#F6C343"
+        android:strokeWidth="4"
+        android:strokeLineCap="round" />
+</vector>
