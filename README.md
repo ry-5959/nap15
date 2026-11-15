@@ -22,7 +22,7 @@
 ### 2) Pleos Connect 에뮬레이터에서 실행
 
 1. Pleos Connect 에뮬레이터를 켭니다.
-2. APK를 설치합니다: `adb install -r apk/팀명_15분만_release.apk`
+2. APK를 설치합니다: `adb install -r apk/wallsong_15분만_release.apk`
 3. 앱 목록에서 `15분만`을 엽니다.
 4. Virtual Console에서 기어를 P에 두고 시작합니다. 문·실내 온도·브레이크·기어를 바꿔 예외 동작을 확인합니다.
 
@@ -35,7 +35,7 @@
 
 ## APK 위치
 
-`apk/팀명_15분만_release.apk`
+`apk/wallsong_15분만_release.apk`
 
 ## 테스트 환경 및 필요한 설정
 
@@ -99,19 +99,18 @@ apk/                release APK
 - 모든 제어는 capability 확인을 통과한 것만 호출합니다. 지원하지 않는 기능은 건너뛰고 화면에 알립니다.
 - 주행 중 사용을 선언하지 않았습니다(`distractionOptimized` 없음). 주행 중에는 플랫폼이 화면을 가립니다.
 
-## 검증 상태 (2026-11-14 기준)
+## 검증 상태 (2026-11-15 기준)
 
 확인한 것
 
 - 쪽잠 로직 자동 테스트 18건 통과: `node tests/core.test.js`
 - 브라우저에서 전체 흐름 실행, 콘솔 오류 없음: `node tests/shots.js` (Playwright 필요)
 - 차량 모드(네이티브 다리)를 흉내 낸 화면 점검 통과: `node tests/native-mode.js` (Playwright 필요)
-- 코틀린 소스가 Vehicle SDK 2.3.2·TextToSpeech SDK 3.3.1의 실제 클래스와 Android 14(API 34) 기준으로 컴파일됨
+- GitHub Actions에서 Gradle 전체 빌드 성공, 서명된 release APK 생성(`apk/wallsong_15분만_release.apk`, Vehicle SDK 2.3.2·TextToSpeech SDK 3.3.1 포함)
 
 아직 확인하지 못한 것
 
-- Gradle 전체 빌드와 APK 생성(이 저장소의 GitHub Actions 결과로 확인)
-- Pleos Connect 에뮬레이터에서의 실행
+- Pleos Connect 에뮬레이터에서 APK 설치·실행
 - 실차 동작: 등받이 이동 속도와 범위, 뒷좌석 착좌 값
 - 앱이 화면 뒤로 갔을 때 타이머 유지(포그라운드 서비스 적용 예정)
 - 제어 권한(`CONTROL_CAR_*`)의 App Market 사전 승인
